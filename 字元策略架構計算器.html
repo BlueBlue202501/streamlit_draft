@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字元額度策略架構計算器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1565C0, #1976D2);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .main-content {
+            display: flex;
+            min-height: 800px;
+        }
+        
+        .form-panel {
+            width: 300px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+            max-height: 800px;
+        }
+        
+        .svg-panel {
+            flex: 1;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .svg-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 280px;
+        }
+        
+        .zoom-btn {
+            padding: 8px 12px;
+            background: #1976D2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        
+        .zoom-btn:hover {
+            background: #1565C0;
+        }
+        
+        .export-btn {
+            background: #4CAF50 !important;
+        }
+        
+        .export-btn:hover {
+            background: #45a049 !important;
+        }
+        
+        .export-btn:disabled {
+            background: #cccccc !important;
+            cursor: not-allowed;
+        }
+        
+        .export-select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            background: white;
+            color: #333;
+            min-width: 140px;
+        }
+        
+        .zoom-info {
+            padding: 8px 12px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+        }
+        
+        .svg-container-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            cursor: grab;
+        }
+        
+        .svg-container-wrapper:active {
+            cursor: grabbing;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .section-title {
+            background: #e3f2fd;
+            padding: 10px;
+            margin: 15px -20px;
+            font-weight: bold;
+            color: #1565C0;
+            border-left: 4px solid #1565C0;
+        }
+        
+        .calculated-value {
+            background: #fff3e0;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #f57c00;
+            margin-top: 5px;
+        }
+        
+        .svg-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            transition: transform 0.2s ease;
+            transform-origin: 0 0;
+        }
+        
+        /* SVG styles */
+        .title-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1565C0; }
+        .section-title-svg { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #333; }
+        .header-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+        .normal-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; fill: #333; }
+        .small-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 12px; fill: #333; }
+        .white-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; fill: white; font-weight: bold; }
+        .highlight-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #D32F2F; }
+        .percentage-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976D2; }
+        
+        .main-container { fill: #F8F9FA; stroke: #1976D2; stroke-width: 3; }
+        .cost-section { fill: #FFF3E0; stroke: #FF9800; stroke-width: 2; }
+        .basic-allocation { fill: #E8F5E8; stroke: #4CAF50; stroke-width: 2; }
+        .reward-mechanism { fill: #F3E5F5; stroke: #9C27B0; stroke-width: 2; }
+        .central-box { fill: #E3F2FD; stroke: #1976D2; stroke-width: 2; }
+        .non-central-box { fill: #E8F5E8; stroke: #4CAF50; stroke-width: 2; }
+        
+        .tier1-box { fill: #4CAF50; stroke: #2E7D32; stroke-width: 1; }
+        .tier2-box { fill: #FFC107; stroke: #F57C00; stroke-width: 1; }
+        .tier3-box { fill: #FF9800; stroke: #E65100; stroke-width: 1; }
+        .tier4-box { fill: #9E9E9E; stroke: #616161; stroke-width: 1; }
+        .allocation-box { fill: #81C784; stroke: #388E3C; stroke-width: 2; }
+        .no-allocation-box { fill: #FFCDD2; stroke: #D32F2F; stroke-width: 2; }
+        
+        .phase-indicator { fill: #FFE082; stroke: #F57C00; stroke-width: 2; }
+        .connector { stroke: #666; stroke-width: 2; fill: none; }
+        .phase-connector { stroke: #F57C00; stroke-width: 3; fill: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 字元額度策略架構計算器</h1>
+            <p>自動計算百分比和分配金額</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="form-panel">
+                <div class="section-title">基本設定</div>
+                
+                <div class="form-group">
+                    <label>總預算 (億字元):</label>
+                    <input type="number" id="totalBudget" value="8.4" step="0.1">
+                    <div class="calculated-value">
+                        總預算: <span id="totalBudgetDisplay">8億4,000萬字元</span>
+                    </div>
+                </div>
+                
+                <div class="section-title">成本扣除項目</div>
+                
+                <div class="form-group">
+                    <label>教育訓練 (萬字元):</label>
+                    <input type="number" id="training" value="7500" step="100">
+                </div>
+                
+                <div class="form-group">
+                    <label>測試使用 (萬字元):</label>
+                    <input type="number" id="testing" value="12600" step="100">
+                </div>
+                
+                <div class="form-group">
+                    <label>新建主機 (億字元):</label>
+                    <input type="number" id="newServer" value="2" step="0.1">
+                </div>
+                
+                <div class="calculated-value">
+                    總成本扣除: <span id="totalCost">4億100萬字元</span>
+                </div>
+                
+                <div class="calculated-value">
+                    剩餘可分配: <span id="remainingBudget">4億3,900萬字元</span>
+                </div>
+                
+                <div class="section-title">基本盤配置 (第一階段)</div>
+                
+                <div class="form-group">
+                    <label>基本盤百分比 (%):</label>
+                    <input type="number" id="basicPercentage" value="20" step="1">
+                </div>
+                
+                <div class="calculated-value">
+                    基本盤總額: <span id="basicTotal">8,780萬字元</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>第一級分配 (萬字元):</label>
+                    <input type="number" id="tier1Amount" value="1000" step="50">
+                </div>
+                
+                <div class="form-group">
+                    <label>第二級分配 (萬字元):</label>
+                    <input type="number" id="tier2Amount" value="300" step="50">
+                </div>
+                
+                <div class="form-group">
+                    <label>第三級分配 (萬字元):</label>
+                    <input type="number" id="tier3Amount" value="100" step="50">
+                </div>
+                
+                <div class="form-group">
+                    <label>第四級分配 (萬字元):</label>
+                    <input type="number" id="tier4Amount" value="50" step="25">
+                </div>
+                
+                <div class="form-group">
+                    <label>非中央機關統一配置 (萬字元):</label>
+                    <input type="number" id="nonCentralAmount" value="2000" step="100">
+                </div>
+                
+                <div class="section-title">獎勵機制 (第二階段)</div>
+                
+                <div class="form-group">
+                    <label>獎勵機制百分比 (%):</label>
+                    <input type="number" id="rewardPercentage" value="80" step="1">
+                </div>
+                
+                <div class="calculated-value">
+                    獎勵機制總額: <span id="rewardTotal">3億5,120萬字元</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>基礎貢獻獎勵 (萬字元/次):</label>
+                    <input type="number" id="basicReward" value="500" step="50">
+                </div>
+                
+                <div class="form-group">
+                    <label>創新共享獎勵 (萬字元/次):</label>
+                    <input type="number" id="innovationReward" value="800" step="50">
+                </div>
+            </div>
+            
+            <div class="svg-panel">
+                <div class="svg-controls">
+                    <button class="zoom-btn" onclick="zoomIn()">放大 +</button>
+                    <button class="zoom-btn" onclick="zoomOut()">縮小 -</button>
+                    <button class="zoom-btn" onclick="resetZoom()">重置</button>
+                    <div class="zoom-info">縮放: <span id="zoomLevel">100%</span></div>
+                    
+                    <select id="exportSize" class="export-select">
+                        <option value="1920x1080">16:9 (1920x1080)</option>
+                        <option value="1280x720">16:9 (1280x720)</option>
+                        <option value="1024x768">4:3 (1024x768)</option>
+                        <option value="1600x1200">4:3 (1600x1200)</option>
+                    </select>
+                    <button class="zoom-btn export-btn" onclick="exportToPNG()">📥 下載PNG</button>
+                </div>
+                <div class="svg-container-wrapper" id="svgWrapper">
+                    <svg id="architectureSvg" width="1600" height="1160" viewBox="0 0 1600 1160" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+                        </marker>
+                    </defs>
+                    
+                    <!-- Main container -->
+                    <rect x="30" y="30" width="1540" height="1100" class="main-container" rx="15"/>
+                    
+                    <!-- Title -->
+                    <text x="800" y="65" text-anchor="middle" class="title-text">🎯 字元額度策略架構圖 (非中央機關有分配版)</text>
+                    <text x="800" y="90" text-anchor="middle" class="percentage-text" id="svgTotalBudget">總預算：8億4,000萬字元</text>
+                    
+                    <!-- Cost deduction section -->
+                    <rect x="60" y="110" width="1480" height="100" class="cost-section" rx="10"/>
+                    <text x="800" y="135" text-anchor="middle" class="section-title-svg" id="svgCostTitle">📋 成本扣除 (4億100萬字元)</text>
+                    
+                    <rect x="80" y="150" width="200" height="50" fill="#FFC107" stroke="#F57C00" stroke-width="2" rx="5"/>
+                    <text x="180" y="170" text-anchor="middle" class="normal-text">教育訓練</text>
+                    <text x="180" y="185" text-anchor="middle" class="normal-text" id="svgTraining">7,500萬</text>
+                    
+                    <rect x="300" y="150" width="200" height="50" fill="#FF9800" stroke="#E65100" stroke-width="2" rx="5"/>
+                    <text x="400" y="170" text-anchor="middle" class="white-text">測試使用</text>
+                    <text x="400" y="185" text-anchor="middle" class="white-text" id="svgTesting">1億2,600萬</text>
+                    
+                    <rect x="520" y="150" width="200" height="50" fill="#2196F3" stroke="#1976D2" stroke-width="2" rx="5"/>
+                    <text x="620" y="170" text-anchor="middle" class="white-text">新建主機</text>
+                    <text x="620" y="185" text-anchor="middle" class="white-text" id="svgNewServer">2億字元</text>
+                    
+                    <rect x="740" y="150" width="200" height="50" class="phase-indicator" rx="5"/>
+                    <text x="840" y="170" text-anchor="middle" class="normal-text">剩餘可分配</text>
+                    <text x="840" y="185" text-anchor="middle" class="highlight-text" id="svgRemaining">4億3,900萬</text>
+                    
+                    <!-- Phase 1: Basic allocation -->
+                    <rect x="60" y="240" width="1480" height="320" class="basic-allocation" rx="12"/>
+                    <text x="800" y="270" text-anchor="middle" class="section-title-svg" id="svgPhase1Title">第一階段：基本盤配置 - 20% (8,780萬字元)</text>
+                    
+                    <!-- Central government agencies -->
+                    <rect x="100" y="300" width="700" height="240" class="central-box" rx="8"/>
+                    <text x="450" y="325" text-anchor="middle" class="header-text">中央二級機關 (四級距基本盤)</text>
+                    <text x="450" y="345" text-anchor="middle" class="small-text">依截至114年7月底各機關使用情形分等級分配</text>
+                    
+                    <!-- Tier 1 -->
+                    <rect x="120" y="360" width="150" height="60" class="tier1-box" rx="5"/>
+                    <text x="195" y="380" text-anchor="middle" class="white-text">第一級</text>
+                    <text x="195" y="395" text-anchor="middle" class="white-text">使用率80%+</text>
+                    <text x="195" y="410" text-anchor="middle" class="white-text" id="svgTier1">1,000萬</text>
+                    
+                    <!-- Tier 2 -->
+                    <rect x="290" y="360" width="150" height="60" class="tier2-box" rx="5"/>
+                    <text x="365" y="380" text-anchor="middle" class="normal-text">第二級</text>
+                    <text x="365" y="395" text-anchor="middle" class="normal-text">使用率20-80%</text>
+                    <text x="365" y="410" text-anchor="middle" class="normal-text" id="svgTier2">300萬</text>
+                    
+                    <!-- Tier 3 -->
+                    <rect x="460" y="360" width="150" height="60" class="tier3-box" rx="5"/>
+                    <text x="535" y="380" text-anchor="middle" class="white-text">第三級</text>
+                    <text x="535" y="395" text-anchor="middle" class="white-text">使用率10-20%</text>
+                    <text x="535" y="410" text-anchor="middle" class="white-text" id="svgTier3">100萬</text>
+                    
+                    <!-- Tier 4 -->
+                    <rect x="630" y="360" width="150" height="60" class="tier4-box" rx="5"/>
+                    <text x="705" y="380" text-anchor="middle" class="white-text">第四級</text>
+                    <text x="705" y="395" text-anchor="middle" class="white-text">使用率&lt;10%</text>
+                    <text x="705" y="410" text-anchor="middle" class="white-text" id="svgTier4">50萬</text>
+                    
+                    <!-- Previous period status -->
+                    <rect x="120" y="440" width="320" height="60" class="allocation-box" rx="5"/>
+                    <text x="280" y="465" text-anchor="middle" class="white-text">上一期有申請 → 依級距分配</text>
+                    <text x="280" y="485" text-anchor="middle" class="white-text">基本盤配置</text>
+                    
+                    <rect x="460" y="440" width="320" height="60" class="no-allocation-box" rx="5"/>
+                    <text x="620" y="465" text-anchor="middle" class="normal-text">上一期未申請 → 0字元</text>
+                    <text x="620" y="485" text-anchor="middle" class="normal-text">(不配置基本盤)</text>
+                    
+                    <!-- Non-central government agencies -->
+                    <rect x="840" y="300" width="680" height="240" class="non-central-box" rx="8"/>
+                    <text x="1180" y="325" text-anchor="middle" class="header-text">非中央二級機關 (有分配版本)</text>
+                    
+                    <rect x="860" y="350" width="300" height="80" class="allocation-box" rx="5"/>
+                    <text x="1010" y="375" text-anchor="middle" class="white-text">第一年未申請機關</text>
+                    <text x="1010" y="395" text-anchor="middle" class="white-text" id="svgNonCentral">統一配置：2,000萬字元</text>
+                    <text x="1010" y="415" text-anchor="middle" class="white-text">(例：5個機關案例)</text>
+                    
+                    <rect x="1180" y="350" width="320" height="80" class="allocation-box" rx="5"/>
+                    <text x="1340" y="375" text-anchor="middle" class="white-text">特殊需求機關</text>
+                    <text x="1340" y="395" text-anchor="middle" class="white-text">依需求評估配置</text>
+                    <text x="1340" y="415" text-anchor="middle" class="white-text">基本額度保障</text>
+                    
+                    <rect x="860" y="450" width="640" height="60" class="phase-indicator" rx="5"/>
+                    <text x="1180" y="475" text-anchor="middle" class="normal-text">當使用率達95%時，可申請進入第二階段</text>
+                    <text x="1180" y="495" text-anchor="middle" class="highlight-text">獎勵加碼金申請</text>
+                    
+                    <!-- Phase transition -->
+                    <rect x="600" y="580" width="400" height="40" class="phase-indicator" rx="8"/>
+                    <text x="800" y="605" text-anchor="middle" class="header-text">⬇️ 使用率達95% ⬇️</text>
+                    
+                    <!-- Phase 2: Reward mechanism -->
+                    <rect x="60" y="640" width="1480" height="280" class="reward-mechanism" rx="12"/>
+                    <text x="800" y="670" text-anchor="middle" class="section-title-svg" id="svgPhase2Title">第二階段：獎勵加碼金 - 80% (3億5,120萬字元)</text>
+                    
+                    <!-- Basic contribution reward -->
+                    <rect x="100" y="700" width="680" height="180" fill="#E1BEE7" stroke="#9C27B0" stroke-width="2" rx="8"/>
+                    <text x="440" y="725" text-anchor="middle" class="header-text">基礎貢獻獎勵</text>
+                    
+                    <rect x="120" y="750" width="300" height="80" fill="#BA68C8" stroke="#8E24AA" stroke-width="2" rx="5"/>
+                    <text x="270" y="775" text-anchor="middle" class="white-text">申請條件</text>
+                    <text x="270" y="795" text-anchor="middle" class="white-text">• 字元使用率≥95%</text>
+                    <text x="270" y="815" text-anchor="middle" class="white-text">• 完成申請文件</text>
+                    
+                    <rect x="440" y="750" width="320" height="80" fill="#BA68C8" stroke="#8E24AA" stroke-width="2" rx="5"/>
+                    <text x="600" y="775" text-anchor="middle" class="white-text">獎勵額度</text>
+                    <text x="600" y="795" text-anchor="middle" class="white-text" id="svgBasicReward">每次500萬字元</text>
+                    <text x="600" y="815" text-anchor="middle" class="white-text">🔒不受歸零影響</text>
+                    
+                    <!-- Innovation sharing reward -->
+                    <rect x="820" y="700" width="680" height="180" fill="#E1BEE7" stroke="#9C27B0" stroke-width="2" rx="8"/>
+                    <text x="1160" y="725" text-anchor="middle" class="header-text">創新共享獎勵</text>
+                    
+                    <rect x="840" y="750" width="300" height="80" fill="#BA68C8" stroke="#8E24AA" stroke-width="2" rx="5"/>
+                    <text x="990" y="775" text-anchor="middle" class="white-text">申請條件</text>
+                    <text x="990" y="795" text-anchor="middle" class="white-text">• 基礎貢獻獎勵基礎上</text>
+                    <text x="990" y="815" text-anchor="middle" class="white-text">• 提供創新應用案例</text>
+                    
+                    <rect x="1160" y="750" width="320" height="80" fill="#BA68C8" stroke="#8E24AA" stroke-width="2" rx="5"/>
+                    <text x="1320" y="775" text-anchor="middle" class="white-text">獎勵額度</text>
+                    <text x="1320" y="795" text-anchor="middle" class="white-text" id="svgInnovationReward">每次800萬字元</text>
+                    <text x="1320" y="815" text-anchor="middle" class="white-text">🔒不受歸零影響</text>
+                    
+                    <!-- Important notes -->
+                    <rect x="60" y="940" width="1480" height="160" fill="#FFEBEE" stroke="#F44336" stroke-width="2" rx="8"/>
+                    <text x="800" y="965" text-anchor="middle" class="section-title-svg">🔑 重要說明</text>
+                    <text x="80" y="990" class="normal-text">1. 年度歸零機制：當年度未使用完畢之字元得轉入次年度計畫運用</text>
+                    <text x="80" y="1010" class="normal-text">2. 第四級機關保障：使用率&lt;10%的機關仍給予基本盤50萬字元</text>
+                    <text x="80" y="1030" class="normal-text">3. 機關儀表板：統一以字元額度與用量呈現，圖片語音均轉換為字元計算</text>
+                    <text x="80" y="1050" class="normal-text">4. 獎勵字元保障：具實質效益Bots的獎勵字元不受年度歸零機制影響</text>
+                    <text x="80" y="1070" class="normal-text">5. 績效激勵：當使用率達95%時可申請獎勵加碼金，形成正向循環</text>
+                    
+                    <!-- Flow arrows -->
+                    <line x1="840" y1="210" x2="800" y2="240" class="phase-connector"/>
+                    <line x1="800" y1="560" x2="800" y2="580" class="phase-connector"/>
+                    <line x1="800" y1="620" x2="800" y2="640" class="phase-connector"/>
+                </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 縮放功能變數
+        let currentZoom = 1;
+        const minZoom = 0.3;
+        const maxZoom = 3;
+        const zoomStep = 0.2;
+        
+        // 縮放功能
+        function zoomIn() {
+            if (currentZoom < maxZoom) {
+                currentZoom += zoomStep;
+                updateZoom();
+            }
+        }
+        
+        function zoomOut() {
+            if (currentZoom > minZoom) {
+                currentZoom -= zoomStep;
+                updateZoom();
+            }
+        }
+        
+        function resetZoom() {
+            currentZoom = 1;
+            updateZoom();
+        }
+        
+        function updateZoom() {
+            const svg = document.getElementById('architectureSvg');
+            svg.style.transform = `scale(${currentZoom})`;
+            document.getElementById('zoomLevel').textContent = Math.round(currentZoom * 100) + '%';
+        }
+        
+        // 滑鼠滾輪縮放
+        document.getElementById('svgWrapper').addEventListener('wheel', function(e) {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                zoomIn();
+            } else {
+                zoomOut();
+            }
+        });
+        
+        // 拖拽功能
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+        
+        const svgWrapper = document.getElementById('svgWrapper');
+        
+        svgWrapper.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startX = e.pageX - svgWrapper.offsetLeft;
+            startY = e.pageY - svgWrapper.offsetTop;
+            scrollLeft = svgWrapper.scrollLeft;
+            scrollTop = svgWrapper.scrollTop;
+        });
+        
+        svgWrapper.addEventListener('mouseleave', function() {
+            isDragging = false;
+        });
+        
+        svgWrapper.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+        
+        svgWrapper.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - svgWrapper.offsetLeft;
+            const y = e.pageY - svgWrapper.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            svgWrapper.scrollLeft = scrollLeft - walkX;
+            svgWrapper.scrollTop = scrollTop - walkY;
+        });
+        
+        // PNG 導出功能
+        function exportToPNG() {
+            // 顯示處理中提示
+            const exportBtn = document.querySelector('.export-btn');
+            const originalText = exportBtn.textContent;
+            exportBtn.textContent = '處理中...';
+            exportBtn.disabled = true;
+            
+            const svg = document.getElementById('architectureSvg');
+            const sizeSelect = document.getElementById('exportSize');
+            const [width, height] = sizeSelect.value.split('x').map(Number);
+            
+            // 創建canvas
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = width;
+            canvas.height = height;
+            
+            // 設置高品質渲染
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            
+            // 設置白色背景
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, width, height);
+            
+            // 獲取SVG的原始尺寸
+            const svgWidth = 1600;
+            const svgHeight = 1160;
+            
+            // 計算縮放比例以適應目標尺寸
+            const scaleX = width / svgWidth;
+            const scaleY = height / svgHeight;
+            const scale = Math.min(scaleX, scaleY);
+            
+            // 計算居中位置
+            const scaledWidth = svgWidth * scale;
+            const scaledHeight = svgHeight * scale;
+            const offsetX = (width - scaledWidth) / 2;
+            const offsetY = (height - scaledHeight) / 2;
+            
+            // 複製SVG並確保樣式被包含
+            const svgClone = svg.cloneNode(true);
+            
+            // 添加完整樣式到SVG中
+            const styleElement = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+            styleElement.textContent = `
+                .title-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1565C0; }
+                .section-title-svg { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #333; }
+                .header-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+                .normal-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; fill: #333; }
+                .small-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 12px; fill: #333; }
+                .white-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; fill: white; font-weight: bold; }
+                .highlight-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #D32F2F; }
+                .percentage-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1976D2; }
+                
+                .main-container { fill: #F8F9FA; stroke: #1976D2; stroke-width: 3; }
+                .cost-section { fill: #FFF3E0; stroke: #FF9800; stroke-width: 2; }
+                .basic-allocation { fill: #E8F5E8; stroke: #4CAF50; stroke-width: 2; }
+                .reward-mechanism { fill: #F3E5F5; stroke: #9C27B0; stroke-width: 2; }
+                .central-box { fill: #E3F2FD; stroke: #1976D2; stroke-width: 2; }
+                .non-central-box { fill: #E8F5E8; stroke: #4CAF50; stroke-width: 2; }
+                
+                .tier1-box { fill: #4CAF50; stroke: #2E7D32; stroke-width: 1; }
+                .tier2-box { fill: #FFC107; stroke: #F57C00; stroke-width: 1; }
+                .tier3-box { fill: #FF9800; stroke: #E65100; stroke-width: 1; }
+                .tier4-box { fill: #9E9E9E; stroke: #616161; stroke-width: 1; }
+                .allocation-box { fill: #81C784; stroke: #388E3C; stroke-width: 2; }
+                .no-allocation-box { fill: #FFCDD2; stroke: #D32F2F; stroke-width: 2; }
+                
+                .phase-indicator { fill: #FFE082; stroke: #F57C00; stroke-width: 2; }
+                .connector { stroke: #666; stroke-width: 2; fill: none; }
+                .phase-connector { stroke: #F57C00; stroke-width: 3; fill: none; }
+            `;
+            svgClone.insertBefore(styleElement, svgClone.firstChild);
+            
+            const svgData = new XMLSerializer().serializeToString(svgClone);
+            const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+            const svgUrl = URL.createObjectURL(svgBlob);
+            
+            const img = new Image();
+            img.onload = function() {
+                // 繪製SVG到canvas（居中且保持比例）
+                ctx.drawImage(img, offsetX, offsetY, scaledWidth, scaledHeight);
+                
+                // 轉換為PNG並下載
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    
+                    // 生成文件名
+                    const now = new Date();
+                    const timestamp = now.toISOString().slice(0, 10).replace(/-/g, '');
+                    const timeStamp = now.toTimeString().slice(0, 5).replace(/:/g, '');
+                    const sizeLabel = sizeSelect.value;
+                    const totalBudget = document.getElementById('totalBudget').value;
+                    
+                    a.download = `字元策略架構圖_${totalBudget}億_${sizeLabel}_${timestamp}_${timeStamp}.png`;
+                    
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    
+                    URL.revokeObjectURL(url);
+                    URL.revokeObjectURL(svgUrl);
+                    
+                    // 恢復按鈕狀態
+                    exportBtn.textContent = originalText;
+                    exportBtn.disabled = false;
+                }, 'image/png', 1.0);
+            };
+            
+            img.onerror = function() {
+                alert('導出失敗，請重試');
+                URL.revokeObjectURL(svgUrl);
+                
+                // 恢復按鈕狀態
+                exportBtn.textContent = originalText;
+                exportBtn.disabled = false;
+            };
+            
+            img.src = svgUrl;
+        }
+
+        // 格式化數字為中文金額顯示
+        function formatChineseAmount(value) {
+            if (value >= 10000) {
+                const yi = Math.floor(value / 10000);
+                const wan = value % 10000;
+                if (wan === 0) {
+                    return `${yi}億字元`;
+                } else {
+                    return `${yi}億${wan.toLocaleString()}萬字元`;
+                }
+            } else {
+                return `${value.toLocaleString()}萬字元`;
+            }
+        }
+
+        // 計算函數
+        function calculate() {
+            // 獲取輸入值
+            const totalBudget = parseFloat(document.getElementById('totalBudget').value);
+            const training = parseFloat(document.getElementById('training').value);
+            const testing = parseFloat(document.getElementById('testing').value);
+            const newServer = parseFloat(document.getElementById('newServer').value);
+            const basicPercentage = parseFloat(document.getElementById('basicPercentage').value);
+            const rewardPercentage = parseFloat(document.getElementById('rewardPercentage').value);
+            
+            const tier1Amount = parseFloat(document.getElementById('tier1Amount').value);
+            const tier2Amount = parseFloat(document.getElementById('tier2Amount').value);
+            const tier3Amount = parseFloat(document.getElementById('tier3Amount').value);
+            const tier4Amount = parseFloat(document.getElementById('tier4Amount').value);
+            const nonCentralAmount = parseFloat(document.getElementById('nonCentralAmount').value);
+            const basicReward = parseFloat(document.getElementById('basicReward').value);
+            const innovationReward = parseFloat(document.getElementById('innovationReward').value);
+
+            // 計算總預算（萬字元）
+            const totalBudgetWan = totalBudget * 10000;
+            
+            // 計算總成本扣除
+            const newServerWan = newServer * 10000;
+            const totalCostWan = training + testing + newServerWan;
+            
+            // 計算剩餘可分配
+            const remainingWan = totalBudgetWan - totalCostWan;
+            
+            // 計算基本盤總額
+            const basicTotalWan = remainingWan * (basicPercentage / 100);
+            
+            // 計算獎勵機制總額
+            const rewardTotalWan = remainingWan * (rewardPercentage / 100);
+
+            // 更新表單顯示
+            document.getElementById('totalBudgetDisplay').textContent = formatChineseAmount(totalBudgetWan);
+            document.getElementById('totalCost').textContent = formatChineseAmount(totalCostWan);
+            document.getElementById('remainingBudget').textContent = formatChineseAmount(remainingWan);
+            document.getElementById('basicTotal').textContent = formatChineseAmount(basicTotalWan);
+            document.getElementById('rewardTotal').textContent = formatChineseAmount(rewardTotalWan);
+
+            // 更新SVG顯示
+            document.getElementById('svgTotalBudget').textContent = `總預算：${formatChineseAmount(totalBudgetWan)}`;
+            document.getElementById('svgCostTitle').textContent = `📋 成本扣除 (${formatChineseAmount(totalCostWan)})`;
+            document.getElementById('svgTraining').textContent = `${training.toLocaleString()}萬`;
+            
+            // 處理測試使用的顯示
+            if (testing >= 10000) {
+                const yi = Math.floor(testing / 10000);
+                const wan = testing % 10000;
+                if (wan === 0) {
+                    document.getElementById('svgTesting').textContent = `${yi}億`;
+                } else {
+                    document.getElementById('svgTesting').textContent = `${yi}億${wan.toLocaleString()}萬`;
+                }
+            } else {
+                document.getElementById('svgTesting').textContent = `${testing.toLocaleString()}萬`;
+            }
+            
+            // 處理新建主機的顯示
+            if (newServer % 1 === 0) {
+                document.getElementById('svgNewServer').textContent = `${newServer}億字元`;
+            } else {
+                document.getElementById('svgNewServer').textContent = `${newServer}億字元`;
+            }
+            
+            document.getElementById('svgRemaining').textContent = formatChineseAmount(remainingWan);
+            
+            document.getElementById('svgPhase1Title').textContent = 
+                `第一階段：基本盤配置 - ${basicPercentage}% (${formatChineseAmount(basicTotalWan)})`;
+            
+            document.getElementById('svgTier1').textContent = `${tier1Amount.toLocaleString()}萬`;
+            document.getElementById('svgTier2').textContent = `${tier2Amount.toLocaleString()}萬`;
+            document.getElementById('svgTier3').textContent = `${tier3Amount.toLocaleString()}萬`;
+            document.getElementById('svgTier4').textContent = `${tier4Amount.toLocaleString()}萬`;
+            document.getElementById('svgNonCentral').textContent = `統一配置：${nonCentralAmount.toLocaleString()}萬字元`;
+            
+            document.getElementById('svgPhase2Title').textContent = 
+                `第二階段：獎勵加碼金 - ${rewardPercentage}% (${formatChineseAmount(rewardTotalWan)})`;
+            
+            document.getElementById('svgBasicReward').textContent = `每次${basicReward.toLocaleString()}萬字元`;
+            document.getElementById('svgInnovationReward').textContent = `每次${innovationReward.toLocaleString()}萬字元`;
+        }
+
+        // 為所有輸入框添加事件監聽器
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', calculate);
+            });
+            
+            // 初始計算
+            calculate();
+        });
+    </script>
+</body>
+</html>

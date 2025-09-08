@@ -1,0 +1,87 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title-text { font-family: 'Microsoft YaHei', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #333; }
+      .header-text { font-family: 'Microsoft YaHei', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+      .normal-text { font-family: 'Microsoft YaHei', Arial, sans-serif; font-size: 14px; fill: #333; }
+      .small-text { font-family: 'Microsoft YaHei', Arial, sans-serif; font-size: 12px; fill: #333; }
+      .tier1-box { fill: #4CAF50; stroke: #388E3C; stroke-width: 2; }
+      .tier2-box { fill: #2196F3; stroke: #1976D2; stroke-width: 2; }
+      .tier3-box { fill: #FF9800; stroke: #F57C00; stroke-width: 2; }
+      .disabled-box { fill: #9E9E9E; stroke: #616161; stroke-width: 2; }
+      .reward-box { fill: #9C27B0; stroke: #7B1FA2; stroke-width: 2; }
+      .main-box { fill: #F5F5F5; stroke: #333; stroke-width: 3; }
+      .connector { stroke: #666; stroke-width: 2; fill: none; }
+    </style>
+  </defs>
+  
+  <!-- Main container -->
+  <rect x="50" y="50" width="1100" height="700" class="main-box" rx="10"/>
+  <text x="600" y="80" text-anchor="middle" class="title-text">🎯 字元配置架構圖</text>
+  <text x="600" y="105" text-anchor="middle" class="header-text">總字元預算：4億900萬字元</text>
+  
+  <!-- Main divisions -->
+  <!-- Left side: Basic allocation (20%) -->
+  <rect x="100" y="150" width="450" height="500" fill="#E3F2FD" stroke="#1976D2" stroke-width="2" rx="8"/>
+  <text x="325" y="180" text-anchor="middle" class="header-text">基本盤配置</text>
+  <text x="325" y="200" text-anchor="middle" class="normal-text">7,100萬字元 (20%)</text>
+  
+  <!-- Right side: Reward funds (80%) -->
+  <rect x="600" y="150" width="450" height="500" class="reward-box" rx="8"/>
+  <text x="825" y="180" text-anchor="middle" class="header-text" fill="white">獎勵加碼金</text>
+  <text x="825" y="200" text-anchor="middle" class="normal-text" fill="white">3億3,800萬字元 (80%)</text>
+  
+  <!-- Central government secondary agencies -->
+  <rect x="120" y="230" width="410" height="300" fill="#F8F9FA" stroke="#666" stroke-width="1" rx="5"/>
+  <text x="325" y="255" text-anchor="middle" class="header-text">中央二級機關</text>
+  
+  <!-- Previous period applicants -->
+  <rect x="140" y="280" width="180" height="220" fill="#FFF" stroke="#666" stroke-width="1" rx="3"/>
+  <text x="230" y="305" text-anchor="middle" class="normal-text">上一期有申請</text>
+  
+  <!-- Tier 1 -->
+  <rect x="150" y="320" width="160" height="50" class="tier1-box" rx="3"/>
+  <text x="230" y="340" text-anchor="middle" class="small-text" fill="white">第一級 (使用率80%以上)</text>
+  <text x="230" y="355" text-anchor="middle" class="small-text" fill="white">1,000萬字元</text>
+  
+  <!-- Tier 2 -->
+  <rect x="150" y="380" width="160" height="50" class="tier2-box" rx="3"/>
+  <text x="230" y="400" text-anchor="middle" class="small-text" fill="white">第二級 (使用率20%~80%)</text>
+  <text x="230" y="415" text-anchor="middle" class="small-text" fill="white">300萬字元</text>
+  
+  <!-- Tier 3 -->
+  <rect x="150" y="440" width="160" height="50" class="tier3-box" rx="3"/>
+  <text x="230" y="460" text-anchor="middle" class="small-text" fill="white">第三級 (使用率20%以下)</text>
+  <text x="230" y="475" text-anchor="middle" class="small-text" fill="white">100萬字元</text>
+  
+  <!-- Previous period non-applicants -->
+  <rect x="340" y="280" width="180" height="100" class="disabled-box" rx="3"/>
+  <text x="430" y="320" text-anchor="middle" class="normal-text" fill="white">上一期未申請</text>
+  <text x="430" y="340" text-anchor="middle" class="small-text" fill="white">0萬字元</text>
+  <text x="430" y="355" text-anchor="middle" class="small-text" fill="white">(不配置基本盤)</text>
+  
+  <!-- Non-central government secondary agencies -->
+  <rect x="140" y="410" width="180" height="80" class="disabled-box" rx="3"/>
+  <text x="230" y="440" text-anchor="middle" class="normal-text" fill="white">非中央二級機關</text>
+  <text x="230" y="460" text-anchor="middle" class="small-text" fill="white">0萬字元</text>
+  <text x="230" y="475" text-anchor="middle" class="small-text" fill="white">(不配置資源額度)</text>
+  
+  <!-- Reward fund details -->
+  <text x="825" y="250" text-anchor="middle" class="normal-text" fill="white">申請條件：</text>
+  <text x="825" y="275" text-anchor="middle" class="small-text" fill="white">字元使用率達95% + 完成申請文件</text>
+  
+  <text x="825" y="320" text-anchor="middle" class="normal-text" fill="white">單次發放：</text>
+  <text x="825" y="345" text-anchor="middle" class="small-text" fill="white">500萬字元</text>
+  
+  <text x="825" y="390" text-anchor="middle" class="normal-text" fill="white">申請次數：</text>
+  <text x="825" y="415" text-anchor="middle" class="small-text" fill="white">不限制（鼓勵持續申請）</text>
+  
+  <!-- Connectors -->
+  <line x1="325" y1="130" x2="325" y2="150" class="connector"/>
+  <line x1="325" y1="130" x2="825" y2="150" class="connector"/>
+  <line x1="325" y1="130" x2="600" y2="130" class="connector"/>
+  
+  <!-- Percentage indicators -->
+  <text x="325" y="670" text-anchor="middle" class="normal-text">20%</text>
+  <text x="825" y="670" text-anchor="middle" class="normal-text" fill="white">80%</text>
+</svg>

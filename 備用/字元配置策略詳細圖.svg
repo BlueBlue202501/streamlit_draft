@@ -1,0 +1,322 @@
+<svg width="1400" height="1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1565C0; }
+      .section-title { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #333; }
+      .header-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+      .normal-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; fill: #333; }
+      .small-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 12px; fill: #333; }
+      .white-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 12px; fill: white; }
+      .number-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #333; }
+      .percentage-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #666; }
+      .highlight-number { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #D32F2F; }
+      
+      .main-border { fill: none; stroke: #1976D2; stroke-width: 3; stroke-dasharray: 8,4; }
+      .section-box { fill: #F8F9FA; stroke: #666; stroke-width: 2; }
+      .allocation-box { fill: #E8F5E8; stroke: #4CAF50; stroke-width: 2; }
+      .reward-box { fill: #E3F2FD; stroke: #2196F3; stroke-width: 2; }
+      .tier1-box { fill: #4CAF50; stroke: #2E7D32; stroke-width: 1; }
+      .tier2-box { fill: #FFC107; stroke: #F57C00; stroke-width: 1; }
+      .tier3-box { fill: #FF9800; stroke: #E65100; stroke-width: 1; }
+      .disabled-box { fill: #9E9E9E; stroke: #616161; stroke-width: 1; }
+      .yellow-highlight { fill: #FFF176; stroke: #F57F17; stroke-width: 2; }
+      .green-highlight { fill: #81C784; stroke: #388E3C; stroke-width: 2; }
+      .blue-highlight { fill: #64B5F6; stroke: #1976D2; stroke-width: 2; }
+      .orange-highlight { fill: #FFB74D; stroke: #F57C00; stroke-width: 2; }
+      
+      .table-header { fill: #424242; }
+      .table-cell { fill: #F5F5F5; stroke: #DDD; stroke-width: 1; }
+      .data-cell { fill: white; stroke: #DDD; stroke-width: 1; }
+    </style>
+  </defs>
+  
+  <!-- Main border -->
+  <rect x="20" y="20" width="1360" height="960" class="main-border" rx="15"/>
+  
+  <!-- Title -->
+  <text x="700" y="50" text-anchor="middle" class="title-text">字元總資源配置策略圖</text>
+  
+  <!-- Top section: 新年度需求總資源 -->
+  <rect x="50" y="80" width="1300" height="120" class="section-box" rx="8"/>
+  <text x="70" y="105" class="section-title">主機</text>
+  <text x="200" y="105" class="section-title">單位字元數</text>
+  <text x="350" y="105" class="section-title">機關/單位/機關</text>
+  <text x="500" y="105" class="section-title">總字元數</text>
+  
+  <!-- 新年度需求總資源 -->
+  <rect x="50" y="110" width="120" height="30" class="table-header"/>
+  <text x="110" y="130" text-anchor="middle" class="white-text">新年度需求總資源</text>
+  
+  <rect x="170" y="110" width="120" height="30" class="data-cell"/>
+  <text x="230" y="130" text-anchor="middle" class="normal-text">20,000,000</text>
+  
+  <rect x="290" y="110" width="120" height="30" class="data-cell"/>
+  <text x="350" y="130" text-anchor="middle" class="normal-text">42機關</text>
+  
+  <rect x="410" y="110" width="150" height="30" class="yellow-highlight"/>
+  <text x="485" y="130" text-anchor="middle" class="number-text">840,000,000</text>
+  
+  <!-- 字元分配成本 -->
+  <rect x="50" y="140" width="120" height="30" class="table-header"/>
+  <text x="110" y="160" text-anchor="middle" class="white-text">字元分配成本</text>
+  
+  <rect x="170" y="140" width="390" height="30" class="data-cell"/>
+  <text x="365" y="160" text-anchor="middle" class="normal-text">字元分配成本</text>
+  
+  <!-- 機關分類 -->
+  <rect x="700" y="110" width="80" height="60" class="data-cell"/>
+  <text x="740" y="135" text-anchor="middle" class="small-text">情境</text>
+  <text x="740" y="155" text-anchor="middle" class="small-text">10台新主機</text>
+  
+  <rect x="780" y="110" width="80" height="60" class="data-cell"/>
+  <text x="820" y="140" text-anchor="middle" class="small-text">二級機關</text>
+  
+  <rect x="860" y="110" width="80" height="60" class="data-cell"/>
+  <text x="900" y="140" text-anchor="middle" class="small-text">非二級機關</text>
+  
+  <!-- Lab32新年度教育訓練測試使用 -->
+  <rect x="50" y="220" width="1300" height="180" class="allocation-box" rx="8"/>
+  <text x="70" y="245" class="section-title">主機</text>
+  <text x="200" y="245" class="section-title">單位字元數</text>
+  <text x="350" y="245" class="section-title">機關/單位/機關</text>
+  <text x="500" y="245" class="section-title">總字元數</text>
+  
+  <!-- lab32新年度教育訓練 -->
+  <rect x="50" y="250" width="120" height="30" class="table-header"/>
+  <text x="110" y="270" text-anchor="middle" class="white-text">lab32新年度教育訓練</text>
+  
+  <rect x="170" y="250" width="120" height="30" class="data-cell"/>
+  <text x="230" y="270" text-anchor="middle" class="normal-text">15,000,000</text>
+  
+  <rect x="290" y="250" width="120" height="30" class="data-cell"/>
+  <text x="350" y="270" text-anchor="middle" class="highlight-number">5機</text>
+  
+  <rect x="410" y="250" width="150" height="30" class="green-highlight"/>
+  <text x="485" y="270" text-anchor="middle" class="number-text">75,000,000</text>
+  
+  <!-- 測試使用 -->
+  <rect x="50" y="280" width="120" height="30" class="table-header"/>
+  <text x="110" y="300" text-anchor="middle" class="white-text">測試使用</text>
+  
+  <rect x="170" y="280" width="120" height="30" class="data-cell"/>
+  <text x="230" y="300" text-anchor="middle" class="normal-text">840,000,000</text>
+  
+  <rect x="290" y="280" width="120" height="30" class="data-cell"/>
+  <text x="350" y="300" text-anchor="middle" class="normal-text">約15%</text>
+  
+  <rect x="410" y="280" width="150" height="30" class="green-highlight"/>
+  <text x="485" y="300" text-anchor="middle" class="number-text">126,000,000</text>
+  
+  <!-- lab33-42新建主機 -->
+  <rect x="50" y="310" width="120" height="30" class="table-header"/>
+  <text x="110" y="330" text-anchor="middle" class="white-text">lab33-42新建主機</text>
+  
+  <rect x="170" y="310" width="120" height="30" class="data-cell"/>
+  <text x="230" y="330" text-anchor="middle" class="normal-text">20,000,000</text>
+  
+  <rect x="290" y="310" width="120" height="30" class="data-cell"/>
+  <text x="350" y="330" text-anchor="middle" class="normal-text">10台新主機</text>
+  
+  <rect x="410" y="310" width="150" height="30" class="green-highlight"/>
+  <text x="485" y="330" text-anchor="middle" class="number-text">200,000,000</text>
+  
+  <!-- 說明文字 -->
+  <rect x="600" y="250" width="400" height="80" class="data-cell"/>
+  <text x="620" y="270" class="small-text">例如：外交部、環境部等</text>
+  <text x="620" y="285" class="small-text">5個機關都來申請+5個非</text>
+  <text x="620" y="300" class="small-text">二級機關</text>
+  <text x="620" y="315" class="small-text">須報分配+獎勵加強制</text>
+  
+  <rect x="1000" y="250" width="300" height="80" class="data-cell"/>
+  <text x="1020" y="270" class="small-text">1. 解決前期各機關使用</text>
+  <text x="1020" y="285" class="small-text">   率標準化、分配不均問</text>
+  <text x="1020" y="300" class="small-text">   題</text>
+  <text x="1020" y="315" class="small-text">2. 解決機關保守、過度</text>
+  <text x="1020" y="325" class="small-text">   謹慎字元消耗的問題</text>
+  
+  <!-- 剩下要分配的 -->
+  <rect x="50" y="350" width="200" height="40" class="yellow-highlight"/>
+  <text x="150" y="375" text-anchor="middle" class="header-text">剩下要分配的</text>
+  
+  <rect x="250" y="350" width="150" height="40" class="yellow-highlight"/>
+  <text x="325" y="375" text-anchor="middle" class="highlight-number">439,000,000</text>
+  
+  <rect x="400" y="350" width="400" height="40" class="yellow-highlight"/>
+  <text x="600" y="370" text-anchor="middle" class="normal-text">如何分給最多31個二</text>
+  <text x="600" y="385" text-anchor="middle" class="normal-text">級機關 (439,000,000)</text>
+  
+  <!-- 字元百分比分配表 -->
+  <rect x="50" y="420" width="650" height="300" class="section-box" rx="8"/>
+  <text x="70" y="445" class="section-title">字元百分比</text>
+  <text x="200" y="445" class="section-title">撥算字元數數量</text>
+  
+  <!-- 數據基本盤 -->
+  <rect x="50" y="460" width="300" height="40" class="green-highlight"/>
+  <text x="200" y="485" text-anchor="middle" class="header-text">數據基本盤 (87,800萬字元 當成化)</text>
+  
+  <rect x="350" y="460" width="80" height="40" class="green-highlight"/>
+  <text x="390" y="485" text-anchor="middle" class="number-text">20.00%</text>
+  
+  <rect x="430" y="460" width="120" height="40" class="green-highlight"/>
+  <text x="490" y="485" text-anchor="middle" class="number-text">87,800,000</text>
+  
+  <!-- 按照第一期機關字元額度使用率分三等級 -->
+  <text x="70" y="520" class="normal-text">按照第一期機關字元額度使用率分三等級</text>
+  <text x="400" y="520" class="normal-text">三級距基本盤分配</text>
+  
+  <!-- 第一級標準 -->
+  <rect x="70" y="530" width="80" height="40" class="tier1-box"/>
+  <text x="110" y="555" text-anchor="middle" class="white-text">第一級標準的二級機關</text>
+  
+  <rect x="150" y="530" width="80" height="40" class="data-cell"/>
+  <text x="190" y="555" text-anchor="middle" class="normal-text">80%以上</text>
+  
+  <rect x="230" y="530" width="60" height="40" class="data-cell"/>
+  <text x="260" y="555" text-anchor="middle" class="normal-text">25%</text>
+  
+  <rect x="290" y="530" width="100" height="40" class="data-cell"/>
+  <text x="340" y="555" text-anchor="middle" class="normal-text">21,950,000</text>
+  
+  <!-- 機關數量詳細分佈 -->
+  <rect x="720" y="420" width="630" height="300" class="section-box" rx="8"/>
+  <text x="740" y="445" class="section-title">機關數量(31個)</text>
+  <text x="900" y="445" class="section-title">平均每個機關</text>
+  <text x="1100" y="445" class="section-title">優化版加碼</text>
+  
+  <text x="1200" y="465" class="small-text">取一個簡化版數字</text>
+  <text x="1200" y="480" class="small-text">1100萬*2 =</text>
+  <text x="1200" y="495" class="small-text">2200萬</text>
+  <text x="1200" y="510" class="small-text">550萬*11 =6050</text>
+  <text x="1200" y="525" class="small-text">萬</text>
+  
+  <!-- 第一級 -->
+  <rect x="740" y="530" width="60" height="30" class="data-cell"/>
+  <text x="770" y="550" text-anchor="middle" class="normal-text">2</text>
+  
+  <rect x="800" y="530" width="100" height="30" class="data-cell"/>
+  <text x="850" y="550" text-anchor="middle" class="normal-text">10,975,000</text>
+  
+  <rect x="900" y="530" width="80" height="30" class="data-cell"/>
+  <text x="940" y="550" text-anchor="middle" class="normal-text">1100萬</text>
+  
+  <!-- 第二級標準 -->
+  <rect x="70" y="570" width="80" height="40" class="tier2-box"/>
+  <text x="110" y="595" text-anchor="middle" class="normal-text">第二級標準的二級機關</text>
+  
+  <rect x="150" y="570" width="80" height="40" class="data-cell"/>
+  <text x="190" y="595" text-anchor="middle" class="normal-text">20%~80%</text>
+  
+  <rect x="230" y="570" width="60" height="40" class="data-cell"/>
+  <text x="260" y="595" text-anchor="middle" class="normal-text">70%</text>
+  
+  <rect x="290" y="570" width="100" height="40" class="data-cell"/>
+  <text x="340" y="595" text-anchor="middle" class="normal-text">61,460,000</text>
+  
+  <!-- 第二級數量 -->
+  <rect x="740" y="570" width="60" height="30" class="data-cell"/>
+  <text x="770" y="590" text-anchor="middle" class="normal-text">11</text>
+  
+  <rect x="800" y="570" width="100" height="30" class="data-cell"/>
+  <text x="850" y="590" text-anchor="middle" class="normal-text">5,587,273</text>
+  
+  <rect x="900" y="570" width="80" height="30" class="data-cell"/>
+  <text x="940" y="590" text-anchor="middle" class="normal-text">550萬</text>
+  
+  <!-- 第三級標準 -->
+  <rect x="70" y="610" width="80" height="40" class="tier3-box"/>
+  <text x="110" y="635" text-anchor="middle" class="white-text">第三級標準的二級機關</text>
+  
+  <rect x="150" y="610" width="80" height="40" class="data-cell"/>
+  <text x="190" y="635" text-anchor="middle" class="normal-text">10%~20%以下</text>
+  
+  <rect x="230" y="610" width="60" height="40" class="data-cell"/>
+  <text x="260" y="635" text-anchor="middle" class="normal-text">5%</text>
+  
+  <rect x="290" y="610" width="100" height="40" class="data-cell"/>
+  <text x="340" y="635" text-anchor="middle" class="normal-text">4,390,000</text>
+  
+  <!-- 第三級數量 -->
+  <rect x="740" y="610" width="60" height="30" class="data-cell"/>
+  <text x="770" y="630" text-anchor="middle" class="normal-text">3</text>
+  
+  <rect x="800" y="610" width="100" height="30" class="data-cell"/>
+  <text x="850" y="630" text-anchor="middle" class="normal-text">1,463,333</text>
+  
+  <rect x="900" y="610" width="80" height="30" class="data-cell"/>
+  <text x="940" y="630" text-anchor="middle" class="normal-text">140萬</text>
+  
+  <!-- 第四級標準 -->
+  <rect x="70" y="650" width="80" height="40" class="disabled-box"/>
+  <text x="110" y="675" text-anchor="middle" class="white-text">四級標準的二級機關</text>
+  
+  <rect x="150" y="650" width="80" height="40" class="data-cell"/>
+  <text x="190" y="675" text-anchor="middle" class="normal-text">10%以下</text>
+  
+  <rect x="230" y="650" width="60" height="40" class="data-cell"/>
+  <text x="260" y="675" text-anchor="middle" class="normal-text">不給</text>
+  
+  <!-- 第四級數量 -->
+  <rect x="740" y="650" width="60" height="30" class="data-cell"/>
+  <text x="770" y="670" text-anchor="middle" class="normal-text">15</text>
+  
+  <rect x="800" y="650" width="100" height="30" class="data-cell"/>
+  <text x="850" y="670" text-anchor="middle" class="normal-text">0</text>
+  
+  <rect x="900" y="650" width="80" height="30" class="data-cell"/>
+  <text x="940" y="670" text-anchor="middle" class="normal-text">0萬</text>
+  
+  <!-- 總計 -->
+  <rect x="1150" y="570" width="100" height="30" class="orange-highlight"/>
+  <text x="1200" y="590" text-anchor="middle" class="normal-text">140萬*3 =520萬</text>
+  
+  <rect x="1050" y="610" width="100" height="30" class="orange-highlight"/>
+  <text x="1100" y="630" text-anchor="middle" class="number-text">87,700,000</text>
+  
+  <rect x="1150" y="610" width="100" height="30" class="orange-highlight"/>
+  <text x="1200" y="630" text-anchor="middle" class="number-text">8770萬</text>
+  
+  <!-- 獎勵加碼金 -->
+  <rect x="50" y="740" width="650" height="80" class="blue-highlight" rx="8"/>
+  <text x="70" y="765" class="header-text">字元百分比</text>
+  <text x="200" y="765" class="header-text">撥算字元數數量</text>
+  <text x="400" y="765" class="header-text">剩下可方法的加碼金</text>
+  
+  <rect x="70" y="770" width="200" height="40" class="blue-highlight"/>
+  <text x="170" y="795" text-anchor="middle" class="white-text">獎勵加碼金(3億3800萬字元)</text>
+  
+  <rect x="270" y="770" width="80" height="40" class="blue-highlight"/>
+  <text x="310" y="795" text-anchor="middle" class="white-text">80.00%</text>
+  
+  <rect x="350" y="770" width="120" height="40" class="blue-highlight"/>
+  <text x="410" y="795" text-anchor="middle" class="white-text">351,200,000</text>
+  
+  <rect x="470" y="770" width="120" height="40" class="blue-highlight"/>
+  <text x="530" y="795" text-anchor="middle" class="white-text">351,300,000</text>
+  
+  <rect x="590" y="770" width="100" height="40" class="blue-highlight"/>
+  <text x="640" y="795" text-anchor="middle" class="white-text">3億5130萬</text>
+  
+  <!-- 機關申請獎勵加碼金申請條件 -->
+  <rect x="50" y="840" width="1300" height="120" class="section-box" rx="8"/>
+  <text x="70" y="865" class="highlight-number">機關申請獎勵加碼金申請：</text>
+  
+  <text x="70" y="885" class="highlight-number">001</text>
+  <text x="120" y="885" class="normal-text">出完字元額度率用量（95%）</text>
+  <text x="400" y="885" class="normal-text">一次最1000萬可以發</text>
+  <text x="600" y="885" class="number-text">35.1 次</text>
+  <text x="800" y="885" class="normal-text">*每個機關不限申請1次</text>
+  
+  <text x="70" y="905" class="highlight-number">002</text>
+  <text x="120" y="905" class="normal-text">填寫申請文件完成申請</text>
+  <text x="400" y="905" class="normal-text">N次</text>
+  <text x="800" y="905" class="normal-text">*鼓勵爭取申請機會提</text>
+  
+  <text x="70" y="925" class="highlight-number">003</text>
+  <text x="120" y="925" class="normal-text">非二級不能申請</text>
+  <text x="800" y="925" class="normal-text">高字元額度</text>
+  
+  <!-- 備註 -->
+  <rect x="50" y="970" width="1300" height="20" class="data-cell"/>
+  <text x="70" y="985" class="small-text">備註：</text>
+  <text x="120" y="985" class="small-text">機關大使權限：可負行增加白名單、限制機關需每半年限制元數(例如50萬/半年)、不限制，設置各機關設使用</text>
+</svg>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字元儀表板 V2 - 多額度版</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Chart.js 用於繪製圖表 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts - Inter 字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* bg-slate-900 */
+        }
+        /* Chart.js 全域字體顏色設定 */
+        Chart.defaults.color = '#94a3b8'; /* text-slate-400 */
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+        /* 針對 progress bar 的樣式 */
+        .progress-bar-bg {
+            background-color: #334155; /* bg-slate-700 */
+        }
+        .progress-bar-fill {
+            background-color: #22d3ee; /* bg-cyan-400 */
+        }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <!-- 1. 標題與日期設定 -->
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">政府AI應用實驗站 測試(lab32)</h1>
+            <p class="text-slate-400">字元使用量監控儀表板</p>
+        </header>
+
+        <!-- 日期篩選與環境資訊 (保持不變) -->
+        <div class="bg-slate-800 border border-slate-700 rounded-lg p-4 mb-8">
+             <details>
+                <summary class="cursor-pointer font-semibold text-white flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+                    日期範圍設定與環境資訊
+                </summary>
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                    <div>
+                        <label for="start-date" class="text-sm font-medium text-slate-400">開始日期</label>
+                        <input type="date" id="start-date" value="2025-09-01" class="mt-1 w-full bg-slate-700 border-slate-600 rounded-md p-2 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label for="end-date" class="text-sm font-medium text-slate-400">結束日期</label>
+                        <input type="date" id="end-date" value="2025-09-08" class="mt-1 w-full bg-slate-700 border-slate-600 rounded-md p-2 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                    </div>
+                    <div class="md:col-span-2 grid grid-cols-3 gap-4 text-sm bg-slate-900/50 p-3 rounded-md">
+                        <div><span class="font-semibold text-slate-400">機關代碼:</span> <span class="text-white">A123</span></div>
+                        <div><span class="font-semibold text-slate-400">機關名稱:</span> <span class="text-white">數位發展部</span></div>
+                        <div><span class="font-semibold text-slate-400">主機名稱:</span> <span class="text-white">prod-server-01</span></div>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+        <!-- 2.1 (新) 三區字元額度總覽 -->
+        <div class="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-white mb-6">字元額度總覽</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- 第一年度額度卡 -->
+                <div class="bg-slate-900/70 border border-slate-700 rounded-lg p-5 flex flex-col">
+                    <h3 class="font-semibold text-lg text-white mb-4">第一年度額度</h3>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">已使用</span><span class="font-medium text-white">3,500,000</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">剩餘</span><span class="font-medium text-white">1,500,000</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">總額度</span><span class="font-medium text-white">5,000,000</span></div>
+                    </div>
+                    <!-- 進度條 -->
+                    <div class="w-full progress-bar-bg rounded-full h-2.5 mb-2">
+                        <div class="progress-bar-fill h-2.5 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <div class="text-right text-lg font-bold text-cyan-400 mb-4">70%</div>
+                    <div class="mt-auto text-xs text-slate-500 text-center pt-2 border-t border-slate-700">
+                        將於 115/1/1 (2026/1/1) 歸零
+                    </div>
+                </div>
+                <!-- 第二年度額度卡 -->
+                <div class="bg-slate-900/70 border border-slate-700 rounded-lg p-5 flex flex-col">
+                    <h3 class="font-semibold text-lg text-white mb-4">第二年度額度 (含獎勵)</h3>
+                    <div class="space-y-3 mb-4">
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">已使用</span><span class="font-medium text-white">500,000</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">剩餘</span><span class="font-medium text-white">5,500,000</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">總額度</span><span class="font-medium text-white">6,000,000</span></div>
+                    </div>
+                    <!-- 進度條 -->
+                    <div class="w-full progress-bar-bg rounded-full h-2.5 mb-2">
+                        <div class="progress-bar-fill h-2.5 rounded-full bg-green-500" style="width: 8.3%"></div>
+                    </div>
+                    <div class="text-right text-lg font-bold text-green-400 mb-4">8.3%</div>
+                    <div class="mt-auto text-xs text-slate-500 text-center pt-2 border-t border-slate-700">
+                        將於 116/1/1 (2027/1/1) 歸零
+                    </div>
+                </div>
+                <!-- 自購額度卡 -->
+                <div class="bg-slate-900/70 border border-slate-700 rounded-lg p-5 flex flex-col">
+                    <h3 class="font-semibold text-lg text-white mb-4">自購額度</h3>
+                     <div class="space-y-3 mb-4">
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">已使用</span><span class="font-medium text-white">1,200,000</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">剩餘</span><span class="font-medium text-white">800,000</span></div>
+                        <div class="flex justify-between text-sm"><span class="text-slate-400">總額度</span><span class="font-medium text-white">2,000,000</span></div>
+                    </div>
+                    <!-- 進度條 -->
+                    <div class="w-full progress-bar-bg rounded-full h-2.5 mb-2">
+                        <div class="progress-bar-fill h-2.5 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <div class="text-right text-lg font-bold text-cyan-400 mb-4">60%</div>
+                    <div class="mt-auto text-xs text-slate-500 text-center pt-2 border-t border-slate-700">
+                        無歸零期限
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2.3 - 2.5 圖表與分析區 -->
+        <div class="mb-6 flex justify-between items-center">
+            <h2 class="text-xl font-bold text-white">使用量深度分析</h2>
+            <div>
+                <label for="quota-filter" class="text-sm font-medium text-slate-400 mr-2">數據來源:</label>
+                <select id="quota-filter" class="bg-slate-700 border-slate-600 rounded-md p-2 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none">
+                    <option value="all">總用量</option>
+                    <option value="year1">第一年度</option>
+                    <option value="year2">第二年度</option>
+                    <option value="self">自購</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 左側欄：排行榜 -->
+            <div class="lg:col-span-1 space-y-8">
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                    <h3 class="font-semibold text-white text-lg mb-4">使用者排行榜</h3>
+                    <canvas id="userRankingChart"></canvas>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                    <h3 class="font-semibold text-white text-lg mb-4">AI Bots 使用量排行榜</h3>
+                    <canvas id="botRankingChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 右側欄：時間趨勢與統計 -->
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                    <h3 class="font-semibold text-white text-lg mb-4">字元數使用量變化趨勢</h3>
+                    <canvas id="timeSeriesChart"></canvas>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 rounded-lg p-6">
+                     <h3 class="font-semibold text-white text-lg mb-1">使用量統計摘要</h3>
+                     <p class="text-sm text-slate-400 mb-6">下方數據會根據您選擇的數據來源動態更新</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-slate-900/50 p-4 rounded-md">
+                            <p class="text-sm text-slate-400">期間總用量</p>
+                            <p class="text-xl font-semibold text-white">5.2 M</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-md">
+                            <p class="text-sm text-slate-400">期間平均日用量</p>
+                            <p class="text-xl font-semibold text-white">12,380</p>
+                        </div>
+                        <div class="bg-slate-900/50 p-4 rounded-md">
+                            <p class="text-sm text-slate-400">期間高峰日</p>
+                            <p class="text-xl font-semibold text-white">2025-09-05</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900/50 rounded-lg p-5">
+                        <h4 class="font-semibold text-white mb-2">分析結論</h4>
+                        <p class="text-slate-400 text-sm leading-relaxed">
+                            目前總體用量主要來自「第一年度額度」，已消耗70%，需開始注意用量。建議優先使用「第二年度額度」，目前尚有超過90%的餘裕。自購額度使用率為60%，可作為備援。整體趨勢平穩，無異常高峰。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js 圖表初始化腳本 (內容與前版相同，僅為展示)
+        document.addEventListener('DOMContentLoaded', function () {
+            // 此處的數據應根據上方篩選器動態載入
+            // 為簡化範例，此處為靜態數據
+            const userRankingChart = new Chart(document.getElementById('userRankingChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['王小明', '陳大文', '林美麗', '黃國倫', '張雅婷'],
+                    datasets: [{
+                        label: '使用字元數',
+                        data: [120000, 98000, 76000, 54000, 32000],
+                        backgroundColor: 'rgba(56, 189, 248, 0.6)',
+                        borderColor: 'rgba(56, 189, 248, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            const botRankingChart = new Chart(document.getElementById('botRankingChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ['文件摘要', '郵件草稿', '智能客服', '文章潤飾', '數據分析'],
+                    datasets: [{
+                        label: '使用字元數',
+                        data: [250000, 180000, 150000, 110000, 80000],
+                        backgroundColor: ['rgba(56, 189, 248, 0.6)', 'rgba(34, 211, 238, 0.6)', 'rgba(74, 222, 128, 0.6)', 'rgba(250, 204, 21, 0.6)', 'rgba(249, 115, 22, 0.6)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: { responsive: true, plugins: { legend: { display: false } } }
+            });
+
+            const timeSeriesChart = new Chart(document.getElementById('timeSeriesChart').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: ['9/1', '9/2', '9/3', '9/4', '9/5', '9/6', '9/7', '9/8'],
+                    datasets: [{
+                        label: '每日使用字元數',
+                        data: [8500, 9200, 10500, 9800, 15000, 4500, 3200, 9500],
+                        fill: true,
+                        backgroundColor: 'rgba(56, 189, 248, 0.2)',
+                        borderColor: 'rgba(56, 189, 248, 1)',
+                        tension: 0.3
+                    }]
+                },
+                options: { responsive: true }
+            });
+
+            // 篩選器互動邏輯 (示意)
+            document.getElementById('quota-filter').addEventListener('change', function(e) {
+                console.log(`數據來源已切換至: ${e.target.value}`);
+                // 在實際應用中，您會在此處觸發 API 請求
+                // 然後使用 chart.data.datasets = new_data; chart.update(); 來更新圖表
+                alert(`圖表數據應更新為 "${e.target.options[e.target.selectedIndex].text}" 的用量`);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<svg width="1400" height="900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .title-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 28px; font-weight: bold; fill: #1565C0; }
+      .section-title { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #333; }
+      .header-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #333; }
+      .normal-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; fill: #333; }
+      .small-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 14px; fill: #333; }
+      .white-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 16px; fill: white; font-weight: bold; }
+      .highlight-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #D32F2F; }
+      .percentage-text { font-family: 'Microsoft YaHei', '微軟正黑體', Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #1976D2; }
+      
+      .main-container { fill: #F8F9FA; stroke: #1976D2; stroke-width: 4; }
+      .central-box { fill: #E3F2FD; stroke: #1976D2; stroke-width: 3; }
+      .non-central-box { fill: #FFF3E0; stroke: #FF9800; stroke-width: 3; }
+      .basic-allocation { fill: #E8F5E8; stroke: #4CAF50; stroke-width: 2; }
+      .reward-mechanism { fill: #F3E5F5; stroke: #9C27B0; stroke-width: 2; }
+      
+      .tier1-box { fill: #4CAF50; stroke: #2E7D32; stroke-width: 2; }
+      .tier2-box { fill: #FFC107; stroke: #F57C00; stroke-width: 2; }
+      .tier3-box { fill: #FF9800; stroke: #E65100; stroke-width: 2; }
+      .tier4-box { fill: #9E9E9E; stroke: #616161; stroke-width: 2; }
+      .new-agency-box { fill: #64B5F6; stroke: #1976D2; stroke-width: 2; }
+      .no-allocation-box { fill: #FFCDD2; stroke: #D32F2F; stroke-width: 2; }
+      
+      .connector { stroke: #666; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .light-connector { stroke: #999; stroke-width: 2; fill: none; stroke-dasharray: 5,3; }
+    </style>
+    
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+      </marker>
+    </defs>
+  </defs>
+  
+  <!-- Main container -->
+  <rect x="50" y="50" width="1300" height="800" class="main-container" rx="15"/>
+  
+  <!-- Title -->
+  <text x="700" y="90" text-anchor="middle" class="title-text">🎯 字元額度策略概念架構</text>
+  <text x="700" y="120" text-anchor="middle" class="percentage-text">總預算：8億4,000萬字元</text>
+  
+  <!-- Cost deduction section -->
+  <rect x="100" y="140" width="1200" height="120" fill="#F8F9FA" stroke="#666" stroke-width="2" rx="10"/>
+  <text x="700" y="165" text-anchor="middle" class="section-title">📋 成本扣除 (4億100萬字元)</text>
+  
+  <rect x="120" y="180" width="200" height="60" class="tier2-box" rx="8"/>
+  <text x="220" y="200" text-anchor="middle" class="normal-text">教育訓練</text>
+  <text x="220" y="220" text-anchor="middle" class="normal-text">7,500萬</text>
+  <text x="220" y="235" text-anchor="middle" class="small-text">5場次</text>
+  
+  <rect x="340" y="180" width="200" height="60" class="tier3-box" rx="8"/>
+  <text x="440" y="200" text-anchor="middle" class="white-text">測試使用</text>
+  <text x="440" y="220" text-anchor="middle" class="white-text">1億2,600萬</text>
+  <text x="440" y="235" text-anchor="middle" class="white-text">約15%</text>
+  
+  <rect x="560" y="180" width="200" height="60" class="new-agency-box" rx="8"/>
+  <text x="660" y="200" text-anchor="middle" class="white-text">新建主機</text>
+  <text x="660" y="220" text-anchor="middle" class="white-text">2億字元</text>
+  <text x="660" y="235" text-anchor="middle" class="white-text">10台主機</text>
+  
+  <rect x="780" y="180" width="200" height="60" class="no-allocation-box" rx="8"/>
+  <text x="880" y="195" text-anchor="middle" class="normal-text">剩餘可分配</text>
+  <text x="880" y="215" text-anchor="middle" class="highlight-text">4億3,900萬</text>
+  <text x="880" y="235" text-anchor="middle" class="small-text">31個二級機關</text>
+  
+  <rect x="1000" y="180" width="180" height="60" class="reward-mechanism" rx="8"/>
+  <text x="1090" y="200" text-anchor="middle" class="white-text">分配策略</text>
+  <text x="1090" y="220" text-anchor="middle" class="white-text">績效+獎勵</text>
+  
+  <!-- Main distribution -->
+  <rect x="150" y="280" width="450" height="80" class="basic-allocation" rx="10"/>
+  <text x="375" y="305" text-anchor="middle" class="header-text">基本盤配置</text>
+  <text x="375" y="330" text-anchor="middle" class="percentage-text">20% (8,780萬字元)</text>
+  <text x="375" y="350" text-anchor="middle" class="small-text">依據前期使用率分配</text>
+  
+  <rect x="800" y="280" width="450" height="80" class="reward-mechanism" rx="10"/>
+  <text x="1025" y="305" text-anchor="middle" class="header-text">獎勵加碼金</text>
+  <text x="1025" y="330" text-anchor="middle" class="percentage-text">80% (3億5,120萬字元)</text>
+  <text x="1025" y="350" text-anchor="middle" class="small-text">使用率達95%可申請</text>
+  
+  <!-- Central vs Non-central division -->
+  <rect x="100" y="400" width="550" height="450" class="central-box" rx="12"/>
+  <text x="375" y="430" text-anchor="middle" class="section-title">中央二級機關</text>
+  
+  <rect x="750" y="400" width="550" height="450" class="non-central-box" rx="12"/>
+  <text x="1025" y="430" text-anchor="middle" class="section-title">非中央二級機關</text>
+  
+  <!-- Central agencies - Previous applicants -->
+  <rect x="120" y="460" width="250" height="320" class="basic-allocation" rx="8"/>
+  <text x="245" y="485" text-anchor="middle" class="header-text">第一年有申請</text>
+  <text x="245" y="505" text-anchor="middle" class="small-text">基本盤分級配置</text>
+  
+  <!-- Tier breakdown for central agencies -->
+  <rect x="130" y="520" width="230" height="50" class="tier1-box" rx="5"/>
+  <text x="245" y="540" text-anchor="middle" class="white-text">一級 (使用率80%+)</text>
+  <text x="245" y="560" text-anchor="middle" class="white-text">1,100萬字元</text>
+  
+  <rect x="130" y="580" width="230" height="50" class="tier2-box" rx="5"/>
+  <text x="245" y="600" text-anchor="middle" class="normal-text">二級 (使用率20-80%)</text>
+  <text x="245" y="620" text-anchor="middle" class="normal-text">550萬字元</text>
+  
+  <rect x="130" y="640" width="230" height="50" class="tier3-box" rx="5"/>
+  <text x="245" y="660" text-anchor="middle" class="white-text">三級 (使用率20%以下)</text>
+  <text x="245" y="680" text-anchor="middle" class="white-text">140萬字元</text>
+  
+  <rect x="130" y="700" width="230" height="50" class="tier4-box" rx="5"/>
+  <text x="245" y="720" text-anchor="middle" class="white-text">四級 (使用率10%以下)</text>
+  <text x="245" y="740" text-anchor="middle" class="white-text">0字元 (不配置)</text>
+  
+  <!-- Central agencies - New applicants -->
+  <rect x="390" y="460" width="250" height="160" class="new-agency-box" rx="8"/>
+  <text x="515" y="485" text-anchor="middle" class="white-text">第一年未申請</text>
+  <text x="515" y="505" text-anchor="middle" class="white-text">新申請機關</text>
+  
+  <rect x="400" y="530" width="230" height="70" class="new-agency-box" rx="5"/>
+  <text x="515" y="555" text-anchor="middle" class="white-text">統一配置</text>
+  <text x="515" y="575" text-anchor="middle" class="white-text">2,000萬字元</text>
+  <text x="515" y="595" text-anchor="middle" class="white-text">(5個機關案例)</text>
+  
+  <!-- Central agencies - Non-applicants in first year -->
+  <rect x="390" y="640" width="250" height="140" class="no-allocation-box" rx="8"/>
+  <text x="515" y="665" text-anchor="middle" class="normal-text">第一年未申請</text>
+  <text x="515" y="685" text-anchor="middle" class="normal-text">(放棄機會)</text>
+  
+  <rect x="400" y="705" width="230" height="60" class="no-allocation-box" rx="5"/>
+  <text x="515" y="730" text-anchor="middle" class="normal-text">0字元</text>
+  <text x="515" y="750" text-anchor="middle" class="small-text">(不配置基本盤)</text>
+  
+  <!-- Non-central agencies -->
+  <!-- Scenario 1: Has allocation -->
+  <rect x="770" y="460" width="250" height="160" class="new-agency-box" rx="8"/>
+  <text x="895" y="485" text-anchor="middle" class="white-text">情境一：分配字元</text>
+  <text x="895" y="505" text-anchor="middle" class="white-text">第一年未申請</text>
+  
+  <rect x="780" y="530" width="230" height="70" class="new-agency-box" rx="5"/>
+  <text x="895" y="555" text-anchor="middle" class="white-text">統一配置</text>
+  <text x="895" y="575" text-anchor="middle" class="white-text">2,000萬字元</text>
+  <text x="895" y="595" text-anchor="middle" class="white-text">(5個機關案例)</text>
+  
+  <!-- Scenario 2: No allocation -->
+  <rect x="1040" y="460" width="250" height="160" class="no-allocation-box" rx="8"/>
+  <text x="1165" y="485" text-anchor="middle" class="normal-text">情境二：不分配字元</text>
+  <text x="1165" y="505" text-anchor="middle" class="normal-text">第一年有申請</text>
+  
+  <rect x="1050" y="530" width="230" height="70" class="no-allocation-box" rx="5"/>
+  <text x="1165" y="555" text-anchor="middle" class="normal-text">0字元</text>
+  <text x="1165" y="575" text-anchor="middle" class="small-text">(已在第一年提供)</text>
+  <text x="1165" y="595" text-anchor="middle" class="small-text">無基本盤</text>
+  
+  <!-- Reward mechanism details -->
+  <rect x="770" y="640" width="520" height="140" class="reward-mechanism" rx="8"/>
+  <text x="1030" y="665" text-anchor="middle" class="header-text">獎勵機制申請條件</text>
+  
+  <text x="790" y="695" class="normal-text">• 字元使用率達 95% 以上</text>
+  <text x="790" y="720" class="normal-text">• 完成申請文件</text>
+  <text x="790" y="745" class="normal-text">• 每次可申請 500萬字元</text>
+  <text x="790" y="770" class="highlight-text">• 非二級機關不能申請</text>
+  
+  <!-- Connectors -->
+  <line x1="375" y1="360" x2="375" y2="400" class="connector"/>
+  <line x1="1025" y1="360" x2="1025" y2="400" class="connector"/>
+  
+  <!-- Main split connector -->
+  <line x1="700" y1="260" x2="375" y2="280" class="connector"/>
+  <line x1="700" y1="260" x2="1025" y2="280" class="connector"/>
+  
+  <!-- Cost flow connector -->
+  <line x1="880" y1="240" x2="700" y2="260" class="connector"/>
+  
+  <!-- Policy note -->
+  <rect x="100" y="870" width="1200" height="80" class="main-container" rx="8"/>
+  <text x="700" y="895" text-anchor="middle" class="section-title">🔑 策略重點</text>
+  <text x="130" y="920" class="normal-text">1. 中央二級機關：依使用率分級配置基本盤，鼓勵效率使用</text>
+  <text x="130" y="940" class="normal-text">2. 非中央二級機關：彈性分配機制，考量實際需求與預算限制</text>
+</svg>

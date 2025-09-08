@@ -1,0 +1,126 @@
+<svg width="800" height="1550" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="#f0f2f6"/>
+
+    <style>
+        .title { font-family: 'Source Sans Pro', sans-serif; font-weight: 600; font-size: 28px; fill: #0e1117; }
+        .card-title { font-family: 'Source Sans Pro', sans-serif; font-weight: 600; font-size: 18px; fill: #0e1117; }
+        .item-text { font-family: 'Source Sans Pro', sans-serif; font-size: 14px; fill: #31333F; }
+        .metric-label { font-family: 'Source Sans Pro', sans-serif; font-size: 14px; fill: #5e6572; }
+        .metric-value { font-family: 'Source Sans Pro', sans-serif; font-weight: 600; font-size: 24px; fill: #0e1117; }
+        .status-text { font-family: 'Source Sans Pro', sans-serif; font-size: 14px; fill: #212529; }
+        .axis-label { font-family: 'Source Sans Pro', sans-serif; font-size: 12px; fill: #5e6572; }
+    </style>
+
+    <!-- Main Title -->
+    <text x="40" y="50" class="title">政府AI應用實驗站 測試(lab32)</text>
+
+    <!-- Card 1: Date Range -->
+    <g transform="translate(40, 90)">
+        <rect width="720" height="80" rx="10" fill="white" stroke="#e6e6e6"/>
+        <text x="20" y="30" class="card-title">日期範圍設定</text>
+        <text x="20" y="58" class="item-text">開始日期: 2025/03/06</text>
+        <text x="220" y="58" class="item-text">結束日期: 2025/09/08</text>
+    </g>
+
+    <!-- Card 2: KPI Metrics (p1.png) -->
+    <g transform="translate(40, 190)">
+        <rect width="720" height="240" rx="10" fill="white" stroke="#e6e6e6"/>
+        
+        <g transform="translate(20, 25)">
+            <text y="0" class="metric-label">剩餘字元數</text>
+            <text y="25" class="metric-value">16,995,787</text>
+        </g>
+        <g transform="translate(220, 25)">
+            <text y="0" class="metric-label">字元上限</text>
+            <text y="25" class="metric-value">20,000,000</text>
+        </g>
+        <g transform="translate(420, 25)">
+            <text y="0" class="metric-label">總字元數</text>
+            <text y="25" class="metric-value">3,004,213</text>
+        </g>
+        <g transform="translate(620, 25)">
+            <text y="0" class="metric-label">使用比例</text>
+            <text y="25" class="metric-value">15.02%</text>
+        </g>
+
+        <rect x="20" y="80" width="680" height="45" rx="5" fill="#d4edda" stroke="#c3e6cb"/>
+        <text x="35" y="108" class="status-text">✅ 使用狀況良好: 字元使用量在安全範圍內。</text>
+
+        <rect x="20" y="140" width="330" height="70" rx="5" fill="#f8f9fa" stroke="#e6e6e6"/>
+        <text x="35" y="165" class="metric-label">文件已使用頁數</text>
+        <text x="35" y="190" class="metric-value">0</text>
+
+        <rect x="370" y="140" width="330" height="70" rx="5" fill="#f8f9fa" stroke="#e6e6e6"/>
+        <text x="385" y="165" class="metric-label">使用者數</text>
+        <text x="385" y="190" class="metric-value">21</text>
+    </g>
+
+    <!-- Card 3 & 4: Charts (p2.png) -->
+    <g transform="translate(40, 450)">
+        <rect width="720" height="500" rx="10" fill="white" stroke="#e6e6e6"/>
+        <text x="20" y="35" class="card-title">使用者排行榜</text>
+        <g transform="translate(150, 65)">
+            <rect width="297" height="20" fill="#1f77b4"/><text x="302" y="15" class="item-text">29.7萬</text><text x="-140" y="15" class="axis-label">hunchhiok.lu@...</text>
+            <rect y="30" width="264" height="20" fill="#1f77b4"/><text x="269" y="45" class="item-text">26.4萬</text><text x="-140" y="45" class="axis-label">jmwmaimai@...</text>
+            <rect y="60" width="226" height="20" fill="#1f77b4"/><text x="231" y="75" class="item-text">22.6萬</text><text x="-140" y="75" class="axis-label">ssujung@...</text>
+        </g>
+
+        <text x="20" y="205" class="card-title">AI Bots 使用量排行榜</text>
+        <g transform="translate(60, 450)">
+            <line x1="0" y1="0" x2="680" y2="0" stroke="#ddd"/>
+            <text x="10" y="20" class="axis-label">TryAl.botrun</text><rect x="0" y="-103" height="103" width="40" fill="#2ca02c"/>
+            <text x="110" y="20" class="axis-label">智逐字稿.botrun</text><rect x="100" y="-94" height="94" width="40" fill="#2ca02c"/>
+            <text x="210" y="20" class="axis-label">智畫室.botrun</text><rect x="200" y="-21" height="21" width="40" fill="#2ca02c"/>
+            <text x="310" y="20" class="axis-label">智逐字稿-開放...</text><rect x="300" y="-18" height="18" width="40" fill="#2ca02c"/>
+        </g>
+    </g>
+
+    <!-- Card 5: Trend Chart -->
+    <g transform="translate(40, 970)">
+        <rect width="720" height="250" rx="10" fill="white" stroke="#e6e6e6"/>
+        <text x="20" y="35" class="card-title">字元數使用量變化趨勢</text>
+        <g transform="translate(60, 220)">
+            <line x1="0" y1="0" x2="680" y2="0" stroke="#ddd"/>
+            <text x="0" y="15" class="axis-label">07/10</text>
+            <text x="100" y="15" class="axis-label">07/16</text>
+            <text x="200" y="15" class="axis-label">07/24</text>
+            <text x="300" y="15" class="axis-label">08/02</text>
+            <text x="400" y="15" class="axis-label">08/14</text>
+            <polyline points="10,-40 110,-150 210,-80 310,-100 410,-120 510,-140 610,-130" fill="none" stroke="#1f77b4" stroke-width="2"/>
+            <circle cx="110" cy="-150" r="3" fill="#1f77b4"/>
+            <rect x="95" y="-180" width="30" height="20" fill="#d62728" rx="3"/><text x="100" y="-165" fill="white" font-size="10">58.9萬</text>
+        </g>
+    </g>
+
+    <!-- Card 6: Statistics Summary (p3.png) -->
+    <g transform="translate(40, 1240)">
+        <rect width="720" height="280" rx="10" fill="white" stroke="#e6e6e6"/>
+        <text x="20" y="35" class="card-title">使用量統計摘要</text>
+        <g transform="translate(20, 60)">
+            <rect width="330" height="60" rx="5" fill="#f8f9fa" stroke="#e6e6e6"/>
+            <text x="15" y="25" class="metric-label">總使用字元數</text>
+            <text x="15" y="48" class="metric-value">3,004,213</text>
+        </g>
+        <g transform="translate(370, 60)">
+            <rect width="330" height="60" rx="5" fill="#f8f9fa" stroke="#e6e6e6"/>
+            <text x="15" y="25" class="metric-label">高峰日(07/14)</text>
+            <text x="15" y="48" class="metric-value">589,493</text>
+        </g>
+        <g transform="translate(20, 130)">
+            <rect width="330" height="60" rx="5" fill="#f8f9fa" stroke="#e6e6e6"/>
+            <text x="15" y="25" class="metric-label">去除3個高峰後平均</text>
+            <text x="15" y="48" class="metric-value">57,914</text>
+        </g>
+        <g transform="translate(370, 130)">
+            <rect width="330" height="60" rx="5" fill="#f8f9fa" stroke="#e6e6e6"/>
+            <text x="15" y="25" class="metric-label">按平均用量可用天數</text>
+            <text x="15" y="48" class="metric-value">164 天</text>
+        </g>
+
+        <rect x="20" y="205" width="680" height="60" rx="5" fill="#e7f3ff" stroke="#cce0ff"/>
+        <text x="35" y="230" class="status-text">ⓘ 分析結論: 使用量呈下降趨勢，高峰日(07/14)使用量略高於平均值...</text>
+        <text x="50" y="250" class="status-text">主要高峰日 (589,493字元), 07/15 (550,164字元)。</text>
+    </g>
+
+</svg>
