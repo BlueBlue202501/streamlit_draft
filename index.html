@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字元儀表板入口</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        .btn {
+            background-color: #22d3ee;
+            color: #0f172a;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background-color: #0891b2;
+            color: white;
+        }
+    </style>
+    <script>
+        // 自動重定向到儀表板
+        setTimeout(function() {
+            window.location.href = './character_dashboard.html';
+        }, 3000);
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>字元儀表板</h1>
+        <p>正在跳轉到儀表板頁面...</p>
+        <p>如果沒有自動跳轉，請點擊下方按鈕：</p>
+        <a href="./character_dashboard.html" class="btn">進入儀表板</a>
+    </div>
+</body>
+</html>
