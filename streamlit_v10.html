@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>極簡版儀表板設計</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc; /* 淺灰色背景 */
+        }
+        .info-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 lg:p-8">
+
+    <div class="max-w-4xl mx-auto space-y-8">
+        
+        <!-- 單一焦點區塊 -->
+        <div class="info-card">
+            <!-- 1. 最重要的頂層指標 -->
+            <div class="text-center">
+                <h2 class="font-medium text-lg text-slate-600">目前可用總額度</h2>
+                <p class="text-6xl font-bold text-green-600 my-2">31,756,663</p>
+            </div>
+            
+            <!-- 2. 直觀的總體進度 -->
+            <div class="mt-4">
+                <div class="flex justify-between text-sm font-medium text-slate-600">
+                    <span>已使用: 3,243,337</span>
+                    <span>總額度: 35,000,000</span>
+                </div>
+                <div class="w-full bg-slate-200 rounded-full h-2.5 mt-1">
+                    <div class="bg-green-500 h-2.5 rounded-full" style="width: 9.3%"></div>
+                </div>
+            </div>
+
+            <!-- 3. 清晰的額度構成與規則說明 -->
+            <div class="mt-6 border-t pt-6">
+                <h3 class="text-base font-semibold text-slate-800 mb-4">額度來源與扣款順序</h3>
+                <div class="space-y-4">
+                    <!-- 基本盤額度 -->
+                    <div class="flex items-start gap-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                        <span class="text-sm font-bold text-white bg-amber-500 rounded-full h-6 w-6 flex items-center justify-center flex-shrink-0">1</span>
+                        <div>
+                            <h4 class="font-semibold text-slate-700">基本盤額度 (優先消耗)</h4>
+                            <p class="text-lg font-bold text-amber-600">剩餘 31,756,663</p>
+                            <p class="text-xs text-red-600 font-semibold mt-1">⚠️ 將於 115/1/1 全數歸零</p>
+                        </div>
+                    </div>
+                    <!-- 獎勵加碼金額度 -->
+                    <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-lg opacity-70">
+                        <span class="text-sm font-bold text-white bg-slate-400 rounded-full h-6 w-6 flex items-center justify-center flex-shrink-0">2</span>
+                        <div>
+                            <h4 class="font-semibold text-slate-500">獎勵加碼金額度</h4>
+                            <p class="text-lg font-bold text-slate-400">尚有 0</p>
+                             <p class="text-xs text-blue-600 font-semibold mt-1">ℹ️ 基本盤使用率達 80% 後可申請</p>
+                        </div>
+                    </div>
+                    <!-- 自購額度 -->
+                     <div class="flex items-start gap-4 p-4 bg-slate-50 rounded-lg opacity-70">
+                        <span class="text-sm font-bold text-white bg-slate-400 rounded-full h-6 w-6 flex items-center justify-center flex-shrink-0">3</span>
+                        <div>
+                            <h4 class="font-semibold text-slate-500">自購額度</h4>
+                            <p class="text-lg font-bold text-slate-400">尚有 0</p>
+                             <p class="text-xs text-blue-600 font-semibold mt-1">ℹ️ 可隨時聯繫專員加值</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
